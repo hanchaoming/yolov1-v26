@@ -1,0 +1,127 @@
+# 部署与轻量化
+- id: deploy.export
+  label: 模型导出总览
+  domain: deploy
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [export, onnx, 23-formats]
+  order: 1
+  summary: model.export(format=...) 一键导出 23 种格式，覆盖 GPU/CPU/各类 NPU，是部署总入口。
+- id: deploy.onnx
+  label: ONNX 导出与简化
+  domain: deploy
+  type: technique
+  difficulty: 2
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [onnx, onnxsim, opset, interop]
+  order: 2
+  summary: ONNX 是跨框架交换格式；用 onnxsim 融合算子、固定/动态 shape、检查自定义算子兼容性。
+- id: deploy.tensorrt_intro
+  label: TensorRT 入门与 Engine 构建
+  domain: deploy
+  type: technique
+  difficulty: 3
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [tensorrt, engine, nvidia, build]
+  order: 3
+  summary: trtexec 或 Python API 从 ONNX 构建 engine，选 workspace/dynamic shape，NVIDIA 上延迟最低。
+- id: deploy.tensorrt_quant
+  label: TensorRT FP16 / INT8 量化
+  domain: deploy
+  type: technique
+  difficulty: 3
+  tasks: [detect]
+  tags: [fp16, int8, calibration, quantize]
+  order: 4
+  summary: FP16 近乎无损加速；INT8 需校准集（data= + fraction），量化前后务必做精度回归。
+- id: deploy.tensorrt_cpp
+  label: TensorRT C++ 推理
+  domain: deploy
+  type: technique
+  difficulty: 3
+  tasks: [detect, inst_seg]
+  tags: [cpp, cuda, api, runtime]
+  order: 5
+  summary: 加载 engine→绑定显存→enqueue 推理→拷回结果；配合 CUDA stream 与双缓冲可多路并发。
+- id: deploy.tensorrt_plugin
+  label: TensorRT Plugin 与后处理
+  domain: deploy
+  type: technique
+  difficulty: 3
+  tasks: [detect]
+  tags: [plugin, efficientnms, postprocess]
+  order: 6
+  summary: 自定义算子写 plugin；EfficientNMS 插件可把 NMS 并入图；YOLO26 可走 NMS-free 省掉这一步。
+- id: deploy.rknn_intro
+  label: RKNN 入门（rknn-toolkit2）
+  domain: deploy
+  type: technique
+  difficulty: 3
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [rknn, rockchip, rk3588, toolkit2]
+  order: 7
+  summary: ONNX→RKNN 转换（rknn-toolkit2），适配 Rockchip NPU（RK3588/RK3576），支持动态输入。
+- id: deploy.rknn_quant
+  label: RKNN 量化校准
+  domain: deploy
+  type: technique
+  difficulty: 3
+  tasks: [detect]
+  tags: [rknn, ptq, int8, dataset]
+  order: 8
+  summary: PTQ 量化需 50-1000 张代表图做校准，量化后重点核对小目标与密集场景精度。
+- id: deploy.rknn_cpp
+  label: RKNN C API 板端部署
+  domain: deploy
+  type: technique
+  difficulty: 3
+  tasks: [detect, inst_seg]
+  tags: [rknn, c-api, board, npu]
+  order: 9
+  summary: 板端用 librknnrt：init→inputs_set→run→outputs_get；注意 zero-copy、内存对齐与多线程。
+- id: deploy.cpp_pipeline
+  label: C++ 推理通用范式
+  domain: deploy
+  type: concept
+  difficulty: 3
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [cpp, pre-process, post-process, pipeline]
+  order: 10
+  summary: 预处理（letterbox/归一化）→推理→后处理（decode/NMS/坐标还原）三段式，务必与训练对齐。
+- id: deploy.onnxrt
+  label: ONNX Runtime / OpenCV DNN / NCNN
+  domain: deploy
+  type: technique
+  difficulty: 2
+  tasks: [detect, inst_seg]
+  tags: [onnxruntime, opencv-dnn, ncnn, cpu]
+  order: 11
+  summary: CPU/跨平台轻量方案：ORT 通用、OpenCV DNN 集成最方便、NCNN 适合 ARM 移动端。
+- id: deploy.compression
+  label: 轻量化：剪枝 / 蒸馏 / 量化 / NAS
+  domain: deploy
+  type: technique
+  difficulty: 3
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [pruning, distillation, quantization, nas]
+  order: 12
+  summary: 四大压缩路线：剪枝减结构、蒸馏迁能力、量化降位宽、NAS 搜结构；可组合使用。
+- id: deploy.engineering
+  label: 多路视频流与工程优化
+  domain: deploy
+  type: technique
+  difficulty: 3
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [video, multi-stream, threading, memory]
+  order: 13
+  summary: 解码/推理/显示流水线并行、batch 合并、零拷贝、显存池；工程量常大于模型本身。
+- id: deploy.nmsfree_adv
+  label: NMS-free 部署优势
+  domain: deploy
+  type: concept
+  difficulty: 2
+  tasks: [detect]
+  tags: [nms-free, end-to-end, latency]
+  order: 14
+  summary: 免去 NMS 后处理：延迟更低、算子更少、量化/移植更省事，是边缘部署的重要趋势。

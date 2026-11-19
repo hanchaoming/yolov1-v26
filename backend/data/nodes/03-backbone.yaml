@@ -1,0 +1,91 @@
+# 骨干网络
+- id: backbone.darknet
+  label: Darknet / Darknet-19 / Darknet-53
+  domain: backbone
+  type: concept
+  difficulty: 2
+  tasks: [detect]
+  tags: [darknet, residual, yolo1, yolo2, yolo3]
+  order: 1
+  summary: YOLOv1-v3 的骨干家族；Darknet-53 用残差堆叠，在精度与算力间取得平衡。
+- id: backbone.cspnet
+  label: CSPNet
+  domain: backbone
+  type: concept
+  difficulty: 2
+  tasks: [detect]
+  tags: [csp, gradient-flow, efficient]
+  order: 2
+  summary: 跨阶段局部连接分割梯度流，降低计算量并保持精度，是 YOLOv4-v8 骨干核心思想。
+- id: backbone.c3
+  label: C3 / Bottleneck
+  domain: backbone
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg]
+  tags: [c3, bottleneck, yolo5, yolo8]
+  order: 3
+  summary: CSP 思想的标准实现：两条支路（含 Bottleneck 堆叠）拼接融合，v5/v8 基础积木。
+- id: backbone.c2f
+  label: C2f / C3k2
+  domain: backbone
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg]
+  tags: [c2f, c3k2, yolo8, yolo11]
+  order: 4
+  summary: C2f 加宽梯度分支提升特征复用；C3k2（YOLO11）以小核 CSP 变体进一步减参提速。
+- id: backbone.elan
+  label: ELAN / E-ELAN / GELAN
+  domain: backbone
+  type: concept
+  difficulty: 3
+  tasks: [detect]
+  tags: [elan, e-elan, gelan, yolo7, yolo9]
+  order: 5
+  summary: 高效层聚合网络系列：短路连接堆叠增强梯度；GELAN 将其泛化为可组合的通用结构。
+- id: backbone.rep
+  label: EfficientRep / RepVGG
+  domain: backbone
+  type: concept
+  difficulty: 3
+  tasks: [detect]
+  tags: [repvgg, reparameterization, yolo6]
+  order: 6
+  summary: 训练用多分支、推理时重参数化为单路 3×3 卷积，工业部署友好（YOLOv6 主打）。
+- id: backbone.spp
+  label: SPP / SPPF
+  domain: backbone
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg]
+  tags: [spp, sppf, receptive-field]
+  order: 7
+  summary: 空间金字塔池化聚合多尺度感受野；SPPF 串行近似实现，计算更省（v5/v8/v11 标配）。
+- id: backbone.attention
+  label: PSA / C2PSA 注意力
+  domain: backbone
+  type: concept
+  difficulty: 3
+  tasks: [detect]
+  tags: [psa, c2psa, attention, yolo11]
+  order: 8
+  summary: 部分自注意力（PSA）以较低代价引入全局建模，C2PSA 将其封装进 CSP 块（YOLO11）。
+- id: backbone.area_attn
+  label: Area Attention / R-ELAN
+  domain: backbone
+  type: concept
+  difficulty: 3
+  tasks: [detect]
+  tags: [area-attention, r-elan, yolo12]
+  order: 9
+  summary: YOLO12 将大感受野拆分为区域并行注意力，R-ELAN 加残差稳定训练。
+- id: backbone.scale
+  label: 模型尺度 n/s/m/l/x
+  domain: backbone
+  type: concept
+  difficulty: 1
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [scaling, nano, edge]
+  order: 10
+  summary: 同架构不同宽度/深度：n 面向边缘，s/m 平衡，l/x 追求精度；工程选型第一决策点。

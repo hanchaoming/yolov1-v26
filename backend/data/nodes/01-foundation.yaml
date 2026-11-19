@@ -1,0 +1,73 @@
+# 基础理论
+- id: foundation.conv
+  label: 卷积与CNN基础
+  domain: foundation
+  type: concept
+  difficulty: 1
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [cnn, conv, pooling]
+  order: 1
+  summary: 卷积层提取局部特征、池化降采样、堆叠形成层级感受野，是一切检测骨干的原子单元。
+- id: foundation.receptive
+  label: 感受野与特征图
+  domain: foundation
+  type: concept
+  difficulty: 2
+  tasks: [detect]
+  tags: [receptive-field, feature-map]
+  order: 2
+  summary: 感受野决定网络「能看到」多大范围；深层特征图分辨率低但语义强，浅层分辨率高但语义弱。
+- id: foundation.detect_def
+  label: 目标检测问题定义
+  domain: foundation
+  type: concept
+  difficulty: 1
+  tasks: [detect]
+  tags: [one-stage, two-stage]
+  order: 3
+  summary: 在图像中定位（框）并分类目标；两阶段先提议后精修，一阶段（YOLO）直接回归，速度占优。
+- id: foundation.iou
+  label: IoU 与框重叠度
+  domain: foundation
+  type: concept
+  difficulty: 1
+  tasks: [detect]
+  tags: [iou, metric]
+  order: 4
+  summary: 预测框与真值框交并比，是 NMS、标签分配、损失函数与 mAP 的共同基石。
+- id: foundation.nms
+  label: NMS 非极大值抑制
+  domain: foundation
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg]
+  tags: [nms, postprocess]
+  order: 5
+  summary: 按置信度排序、剔除高重叠框，保留最优检测；YOLO26 可选 NMS-free 端到端输出。
+- id: foundation.anchor
+  label: Anchor 先验框
+  domain: foundation
+  type: concept
+  difficulty: 2
+  tasks: [detect]
+  tags: [anchor, anchor-free]
+  order: 6
+  summary: 预设参考框加速收敛；YOLOv8 起走向 anchor-free，直接回归框偏移与中心度。
+- id: foundation.map
+  label: mAP 评价指标
+  domain: foundation
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg]
+  tags: [map, precision, recall]
+  order: 7
+  summary: PR 曲线下面积的类别平均；COCO 常用 mAP@0.5:0.95，是跨版本对比的通用标尺。
+- id: foundation.dataset
+  label: 主流数据集 COCO / VOC
+  domain: foundation
+  type: concept
+  difficulty: 1
+  tasks: [detect, inst_seg, sem_seg]
+  tags: [coco, voc, cityscapes, ade20k]
+  order: 8
+  summary: COCO 80 类通用检测/分割；Cityscapes/ADE20K 用于语义分割；NYU/KITTI 用于深度估计。

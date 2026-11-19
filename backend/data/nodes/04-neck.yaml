@@ -1,0 +1,64 @@
+# 特征融合（Neck）
+- id: neck.fpn
+  label: FPN 特征金字塔
+  domain: neck
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg]
+  tags: [fpn, top-down, multi-scale]
+  order: 1
+  summary: 自顶向下上采样融合语义与细节，让小目标也能获得强语义特征（YOLOv3 引入）。
+- id: neck.pan
+  label: PAN / PANet
+  domain: neck
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg]
+  tags: [pan, panet, bottom-up]
+  order: 2
+  summary: 在 FPN 之上再加自底向上路径，定位信息回传，YOLOv4/v5/v8 标准颈部。
+- id: neck.bifpn
+  label: BiFPN
+  domain: neck
+  type: concept
+  difficulty: 3
+  tasks: [detect]
+  tags: [bifpn, weighted-fusion, efficientdet]
+  order: 3
+  summary: 双向跨尺度连接 + 可学习加权融合，EfficientDet 提出，融合更充分但略增开销。
+- id: neck.reppan
+  label: Rep-PAN
+  domain: neck
+  type: concept
+  difficulty: 3
+  tasks: [detect]
+  tags: [rep-pan, yolo6, reparameterization]
+  order: 4
+  summary: 用 RepBlock 重参数化改造 PAN，训练多分支、部署单路（YOLOv6）。
+- id: neck.fusion
+  label: 多尺度融合策略
+  domain: neck
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [concat, add, fusion]
+  order: 5
+  summary: concat 保留信息量、add 融合更轻；P2/P3/P4/P5 层级选择决定小/大目标能力。
+- id: neck.attn
+  label: 颈部注意力模块
+  domain: neck
+  type: concept
+  difficulty: 3
+  tasks: [detect]
+  tags: [se, cbam, eca, attention]
+  order: 6
+  summary: SE/CA/ECBAM 等通道或空间注意力嵌入颈部，提升关键特征响应，代价是少量延迟。
+- id: neck.proto
+  label: Proto 原型掩码头
+  domain: neck
+  type: concept
+  difficulty: 3
+  tasks: [inst_seg]
+  tags: [proto, mask, yolo-seg]
+  order: 7
+  summary: 实例分割通过原型掩码 + 系数线性组合生成实例 mask，YOLO26 升级为多尺度 proto。

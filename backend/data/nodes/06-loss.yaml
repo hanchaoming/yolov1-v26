@@ -1,0 +1,73 @@
+# 损失函数与标签分配
+- id: loss.cls
+  label: 分类损失 BCE / Varifocal
+  domain: loss
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg]
+  tags: [bce, vfl, classification]
+  order: 1
+  summary: BCE 是基础；Varifocal 按 IoU 加权正负样本，缓解正负样本不平衡（RT-DETR/YOLOE 常用）。
+- id: loss.iou_family
+  label: IoU 系列回归损失
+  domain: loss
+  type: concept
+  difficulty: 2
+  tasks: [detect]
+  tags: [iou, giou, diou, ciou, siou]
+  order: 2
+  summary: 从 IoU→GIoU→DIoU→CIoU→SIoU 逐步补全重叠、中心距、长宽比与角度信息。
+- id: loss.dfl
+  label: DFL 损失
+  domain: loss
+  type: concept
+  difficulty: 3
+  tasks: [detect]
+  tags: [dfl, distribution-focal]
+  order: 3
+  summary: 分布式焦点损失监督框坐标分布，v8-v12 标配；YOLO26 为硬件兼容性移除。
+- id: loss.progloss
+  label: ProgLoss 渐进损失
+  domain: loss
+  type: concept
+  difficulty: 3
+  tasks: [detect]
+  tags: [progloss, yolo26, training-recipe]
+  order: 4
+  summary: YOLO26 训练配方之一：逐步把监督重心移向推理时实际使用的预测头。
+- id: loss.stal
+  label: STAL 小目标感知分配
+  domain: loss
+  type: concept
+  difficulty: 3
+  tasks: [detect]
+  tags: [stal, small-object, label-assign]
+  order: 5
+  summary: YOLO26 提出的小目标感知标签分配，改善密集微小目标的召回与定位。
+- id: loss.assign_legacy
+  label: ATSS / SimOTA
+  domain: loss
+  type: concept
+  difficulty: 3
+  tasks: [detect]
+  tags: [atss, simota, label-assign]
+  order: 6
+  summary: 动态正样本分配早期代表：ATSS 统计自适应阈值，SimOTA 最优传输匹配（v6 等使用）。
+- id: loss.tal
+  label: TAL 分配详解
+  domain: loss
+  type: concept
+  difficulty: 3
+  tasks: [detect, inst_seg]
+  tags: [tal, topk, alignment]
+  order: 7
+  summary: 以 α·score^β·IoU 的对齐度选取 top-k 正样本，分类与回归目标一致性更强。
+- id: loss.compose
+  label: 总损失构成
+  domain: loss
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg]
+  tags: [loss-weight, compose]
+  order: 8
+  summary: 总损失 = λ1·分类 + λ2·回归(IoU/DFL) + λ3·分割/深度等任务项，权重需按任务调平衡。

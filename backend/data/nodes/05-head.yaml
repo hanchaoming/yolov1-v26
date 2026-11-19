@@ -1,0 +1,82 @@
+# 检测头
+- id: head.conv
+  label: YOLO 原始检测头
+  domain: head
+  type: concept
+  difficulty: 2
+  tasks: [detect]
+  tags: [yolo-head, coupled, anchor-based]
+  order: 1
+  summary: 卷积直接输出 框+置信度+类别，分类回归耦合在一起，v1-v7 主流形态。
+- id: head.decoupled
+  label: 解耦头 Decoupled Head
+  domain: head
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg, pose, obb]
+  tags: [decoupled, yolo8, cls-branch, reg-branch]
+  order: 2
+  summary: 分类与回归分支解耦，各自针对性优化，YOLOv8 起标配，收敛更快更稳。
+- id: head.anchor_free
+  label: Anchor-free 回归
+  domain: head
+  type: concept
+  difficulty: 2
+  tasks: [detect]
+  tags: [anchor-free, center, ltrb]
+  order: 3
+  summary: 直接预测中心偏移与四边距离（ltrb），去掉先验框超参，泛化性更好（v8+）。
+- id: head.dfl
+  label: DFL 分布式框回归
+  domain: head
+  type: concept
+  difficulty: 3
+  tasks: [detect]
+  tags: [dfl, distribution, box-regression]
+  order: 4
+  summary: 把框坐标离散化为分布再期望求解，提升定位细腻度；YOLO26 为兼容性已移除。
+- id: head.tal
+  label: TAL 任务对齐分配
+  domain: head
+  type: concept
+  difficulty: 3
+  tasks: [detect, inst_seg]
+  tags: [tal, label-assign, task-aligned]
+  order: 5
+  summary: 用分类与定位的联合对齐度动态选择正样本，取代手工 IoU 阈值，v8+ 核心机制。
+- id: head.nmsfree
+  label: NMS-free 头（一致性双分配）
+  domain: head
+  type: concept
+  difficulty: 3
+  tasks: [detect]
+  tags: [nms-free, dual-assign, yolo10]
+  order: 6
+  summary: 一对多分支负责训练监督，一对一分支负责推理输出，免 NMS 后处理（YOLOv10）。
+- id: head.yolo26
+  label: YOLO26 端到端头
+  domain: head
+  type: concept
+  difficulty: 3
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [nms-free, end-to-end, no-dfl, yolo26]
+  order: 7
+  summary: 可选 NMS-free（≤300 检测/图）+ 去 DFL，导出链路更简洁，CPU 推理提速最高 43%。
+- id: head.mask
+  label: 掩码头（实例/语义）
+  domain: head
+  type: concept
+  difficulty: 3
+  tasks: [inst_seg, sem_seg]
+  tags: [mask-head, proto, semantic]
+  order: 8
+  summary: 实例分割输出 N 个二值 mask；语义分割输出 H×W 类别图，二者结构与指标均不同。
+- id: head.depth
+  label: 深度头 log-depth
+  domain: head
+  type: concept
+  difficulty: 3
+  tasks: [depth]
+  tags: [depth-head, log-depth, unbounded, calibrate]
+  order: 9
+  summary: 预测无界 log 深度（约 0.02–150m），解耦场景形状与绝对尺度，支持 calibrate() 标定。

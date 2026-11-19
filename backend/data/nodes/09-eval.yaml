@@ -1,0 +1,55 @@
+# 评估指标
+- id: eval.pr
+  label: Precision / Recall / F1
+  domain: eval
+  type: concept
+  difficulty: 1
+  tasks: [detect, inst_seg]
+  tags: [precision, recall, f1]
+  order: 1
+  summary: 查准、查全及其调和平均；按置信度阈值取舍，工业场景常先定 recall 下限再提 precision。
+- id: eval.map
+  label: mAP@0.5 与 mAP@0.5:0.95
+  domain: eval
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg]
+  tags: [map, coco, voc]
+  order: 2
+  summary: VOC 风格 AP50 宽松、COCO 风格 0.5:0.95 严格；跨论文对比必须注明协议。
+- id: eval.curve
+  label: PR 曲线与混淆矩阵
+  domain: eval
+  type: technique
+  difficulty: 2
+  tasks: [detect, inst_seg]
+  tags: [pr-curve, confusion, error-analysis]
+  order: 3
+  summary: PR 曲线选阈值，混淆矩阵定位类别互混；Ultralytics val 自动导出这些诊断图。
+- id: eval.seg_metrics
+  label: 分割指标 mIoU / Pixel Acc
+  domain: eval
+  type: concept
+  difficulty: 2
+  tasks: [sem_seg, inst_seg]
+  tags: [miou, pixel-accuracy, iou]
+  order: 4
+  summary: 语义分割看 mIoU 与像素准确率；实例分割 mask AP 仍沿用 COCO mask AP 口径。
+- id: eval.depth_metrics
+  label: 深度指标 δ1 / abs_rel / RMSE
+  domain: eval
+  type: concept
+  difficulty: 3
+  tasks: [depth]
+  tags: [delta1, absrel, rmse, silog]
+  order: 5
+  summary: δ1 为误差 <1.25 的像素占比（越高越好）；abs_rel/RMSE/silog 越低越好，常做中位对齐。
+- id: eval.speed
+  label: 速度与复杂度指标
+  domain: eval
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [fps, latency, params, flops]
+  order: 6
+  summary: FPS/延迟（含前后处理）、参数量、FLOPs 共同刻画部署可行性，需在目标硬件上实测。

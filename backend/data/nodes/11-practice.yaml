@@ -1,0 +1,73 @@
+# 项目实战
+- id: practice.flow
+  label: 2D 视觉项目全流程
+  domain: practice
+  type: practice
+  difficulty: 2
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [workflow, end-to-end]
+  order: 1
+  summary: 需求→数据→选型→训练→评估→部署→迭代，环环相扣，模型只是其中一环。
+- id: practice.selection
+  label: 需求分析与方案选型
+  domain: practice
+  type: practice
+  difficulty: 2
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [requirement, model-selection, tradeoff]
+  order: 2
+  summary: 先定任务类型与指标下限，再在 n/s/m/l/x 与部署硬件间做速度-精度-成本取舍。
+- id: practice.industrial
+  label: 工业质检案例
+  domain: practice
+  type: practice
+  difficulty: 2
+  tasks: [detect, inst_seg]
+  tags: [defect-detection, industrial, inspection]
+  order: 3
+  summary: 缺陷小且稀少：高分辨率 + 小目标增强 + 高召回策略，常配合 ROI 与规则后处理。
+- id: practice.security
+  label: 安防监控案例
+  domain: practice
+  type: practice
+  difficulty: 2
+  tasks: [detect, track, inst_seg]
+  tags: [surveillance, tracking, multi-camera]
+  order: 4
+  summary: 多路视频 + 跟踪 + 告警规则：关注夜间/逆光鲁棒性、误报率与端侧并发能力。
+- id: practice.robot
+  label: 机器人视觉案例
+  domain: practice
+  type: practice
+  difficulty: 3
+  tasks: [detect, inst_seg, depth]
+  tags: [robotics, grasping, avoidance, fusion]
+  order: 5
+  summary: 检测定位 + 深度测距 + 坐标标定，输出抓取位姿；延迟与抖动控制比平均精度更关键。
+- id: practice.pitfalls
+  label: 常见坑与调优清单
+  domain: practice
+  type: practice
+  difficulty: 2
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [pitfall, checklist, debugging]
+  order: 6
+  summary: 标签泄漏、前后处理不一致、量化掉点、域差距、小目标漏检……清单化排查比拍脑袋调参有效。
+- id: practice.checklist
+  label: 端到端交付 Checklist
+  domain: practice
+  type: practice
+  difficulty: 2
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [checklist, delivery, production]
+  order: 7
+  summary: 数据版本、指标基线、延迟预算、崩溃恢复、监控告警、回滚方案——量产前逐项打勾。
+- id: practice.mastery
+  label: 胸有成竹：知识图谱用法
+  domain: practice
+  type: practice
+  difficulty: 1
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [learning, mastery, roadmap]
+  order: 8
+  summary: 按学习路径打地基→顺脉络→拆架构→进任务→上工程→落实战，遇到项目反查图谱组装方案。

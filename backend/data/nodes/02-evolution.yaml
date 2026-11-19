@@ -1,0 +1,181 @@
+# 版本演进（时间主轴 v1 → YOLO26）
+- id: yolo.v1
+  label: YOLOv1
+  domain: evolution
+  type: version
+  year: 2015
+  difficulty: 2
+  tasks: [detect]
+  tags: [grid, one-stage, unified]
+  order: 1
+  summary: 2015 年 Redmon 等提出统一单阶段检测器，把检测化为一次回归，45 FPS / 63.4 mAP(VOC07)。
+- id: yolo.v2
+  label: YOLOv2 / YOLO9000
+  domain: evolution
+  type: version
+  year: 2016
+  difficulty: 2
+  tasks: [detect]
+  tags: [anchor, bn, darknet19, multi-scale]
+  order: 2
+  summary: 引入 BatchNorm、Anchor 聚类、Darknet-19、多尺度训练，WordTree 联合 9000 类。
+- id: yolo.v3
+  label: YOLOv3
+  domain: evolution
+  type: version
+  year: 2018
+  difficulty: 2
+  tasks: [detect]
+  tags: [darknet53, fpn, multi-scale-head]
+  order: 3
+  summary: Darknet-53 残差骨干 + FPN 三尺度预测头，多标签逻辑回归，小目标显著改善。
+- id: yolo.v4
+  label: YOLOv4
+  domain: evolution
+  type: version
+  year: 2020
+  difficulty: 3
+  tasks: [detect]
+  tags: [cspdarknet, spp, pan, bag-of-freebies]
+  order: 4
+  summary: CSPDarknet-53 + SPP + PAN，系统整理「免费包」与「技巧包」，43.5 AP / 65.2 AP50。
+- id: yolo.v5
+  label: YOLOv5
+  domain: evolution
+  type: version
+  year: 2020
+  difficulty: 2
+  tasks: [detect]
+  tags: [pytorch, ultralytics, ecosystem, autoanchor]
+  order: 5
+  summary: Ultralytics PyTorch 生态化改写：Focus/CSP、PANet、Mosaic、autoanchor、完整导出链路。
+- id: yolo.v6
+  label: YOLOv6
+  domain: evolution
+  type: version
+  year: 2022
+  difficulty: 3
+  tasks: [detect]
+  tags: [meituan, efficientrep, reparameterization, quant-friendly]
+  order: 6
+  summary: 美团出品：EfficientRep/Rep-PAN 结构重参数化，面向工业量化部署，SimOTA→TAL。
+- id: yolo.v7
+  label: YOLOv7
+  domain: evolution
+  type: version
+  year: 2022
+  difficulty: 3
+  tasks: [detect]
+  tags: [e-elan, aux-head, reparameterization]
+  order: 7
+  summary: E-ELAN 扩展梯度连接 + 辅助头引导标签分配，51.4 AP @161 FPS，精度-速度双优。
+- id: yolo.v8
+  label: YOLOv8
+  domain: evolution
+  type: version
+  year: 2023
+  difficulty: 2
+  tasks: [detect, inst_seg, classify, pose, obb]
+  tags: [anchor-free, c2f, decoupled-head, TAL, DFL]
+  order: 8
+  summary: Ultralytics 里程碑：anchor-free + C2f + 解耦头 + TAL/DFL，统一五任务 API。
+- id: yolo.v9
+  label: YOLOv9
+  domain: evolution
+  type: version
+  year: 2024
+  difficulty: 3
+  tasks: [detect, inst_seg]
+  tags: [PGI, GELAN, gradient-info]
+  order: 9
+  summary: PGI 可编程梯度信息对抗信息瓶颈，GELAN 广义高效层聚合，YOLOv9-E 达 55.6 AP。
+- id: yolo.v10
+  label: YOLOv10
+  domain: evolution
+  type: version
+  year: 2024
+  difficulty: 3
+  tasks: [detect]
+  tags: [nms-free, dual-assign, thuly, efficiency]
+  order: 10
+  summary: 清华 THU-MIG：一致性双分配（一对多训练 + 一对一推理）实现 NMS-free 端到端。
+- id: yolo11
+  label: YOLO11
+  domain: evolution
+  type: version
+  year: 2024
+  difficulty: 2
+  tasks: [detect, inst_seg, classify, pose, obb]
+  tags: [c3k2, c2psa, stable, production]
+  order: 11
+  summary: C3k2 + C2PSA 注意力，成熟稳定的生产首选；同精度下比 v8 参数量少约 22%。
+- id: yolo12
+  label: YOLO12
+  domain: evolution
+  type: version
+  year: 2025
+  difficulty: 3
+  tasks: [detect, inst_seg, classify, pose, obb]
+  tags: [attention-centric, area-attention, r-elan]
+  order: 12
+  summary: 注意力中心化：Area Attention + R-ELAN，社区研究版，预训练权重仅检测，注意训练稳定性。
+- id: yolo26
+  label: YOLO26
+  domain: evolution
+  type: version
+  year: 2026
+  difficulty: 3
+  tasks: [detect, inst_seg, sem_seg, depth, classify, pose, obb]
+  tags: [nms-free, no-dfl, musgd, progloss, stal, edge]
+  order: 13
+  summary: 2026.01 发布：可选 NMS-free 端到端、去 DFL、MuSGD 优化器，首个七任务统一系列。
+- id: yolo27
+  label: YOLO27（预览）
+  domain: evolution
+  type: version
+  year: 2026
+  difficulty: 3
+  tasks: [detect, inst_seg, sem_seg, depth, classify, pose, obb]
+  tags: [preview, waitlist]
+  order: 14
+  summary: Ultralytics 候补名单中的下一代，官方预告七任务与 42.3% mAP，权重尚未发布。
+- id: yolo.v4_legacy
+  label: YOLOv4（Darknet 版）
+  domain: evolution
+  type: version
+  year: 2020
+  difficulty: 3
+  tasks: [detect]
+  tags: [darknet, reference-only]
+  order: 15
+  summary: Bochkovskiy 的 Darknet 原生实现；Ultralytics 包仅作架构参考，不提供权重。
+- id: ecosystem.rtdetr
+  label: RT-DETR
+  domain: evolution
+  type: technique
+  year: 2023
+  difficulty: 3
+  tasks: [detect]
+  tags: [transformer, detr, baidu]
+  order: 16
+  summary: 百度实时 DETR：卷积骨干 + 混合 Transformer 编码器，NMS-free，精度上限高。
+- id: ecosystem.openvocab
+  label: YOLO-World / YOLOE 开放词汇
+  domain: evolution
+  type: technique
+  year: 2024
+  difficulty: 3
+  tasks: [detect, inst_seg]
+  tags: [open-vocabulary, text-prompt, visual-prompt]
+  order: 17
+  summary: 文本/视觉提示或无提示的开放世界检测分割，突破固定类别，YOLOE-26 已并入 YOLO26 系列。
+- id: ecosystem.sam
+  label: SAM 系列提示式分割
+  domain: evolution
+  type: technique
+  year: 2023
+  difficulty: 2
+  tasks: [inst_seg]
+  tags: [sam, sam2, sam3, promptable, auto-annotation]
+  order: 18
+  summary: Meta SAM/SAM2/SAM3 与 MobileSAM/FastSAM，点/框/文本提示分割，常用于自动标注。

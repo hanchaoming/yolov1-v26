@@ -1,0 +1,172 @@
+# 图谱关系
+# type: evolved | prereq | part_of | improves | uses | related
+
+# ── 版本演进主轴 ─────────────────────────────────────
+- { source: yolo.v1, target: yolo.v2, type: evolved, label: 演进为 }
+- { source: yolo.v2, target: yolo.v3, type: evolved, label: 演进为 }
+- { source: yolo.v3, target: yolo.v4, type: evolved, label: 演进为 }
+- { source: yolo.v4, target: yolo.v5, type: evolved, label: 演进为 }
+- { source: yolo.v5, target: yolo.v6, type: evolved, label: 并行演进 }
+- { source: yolo.v5, target: yolo.v7, type: evolved, label: 并行演进 }
+- { source: yolo.v5, target: yolo.v8, type: evolved, label: 演进为 }
+- { source: yolo.v6, target: yolo.v8, type: related, label: 思路交汇 }
+- { source: yolo.v7, target: yolo.v8, type: related, label: 思路交汇 }
+- { source: yolo.v8, target: yolo.v9, type: evolved, label: 演进为 }
+- { source: yolo.v8, target: yolo.v10, type: evolved, label: 演进为 }
+- { source: yolo.v8, target: yolo11, type: evolved, label: 演进为 }
+- { source: yolo.v9, target: yolo11, type: related, label: 结构借鉴 }
+- { source: yolo.v10, target: yolo26, type: related, label: NMS-free 先行 }
+- { source: yolo11, target: yolo12, type: evolved, label: 演进为 }
+- { source: yolo11, target: yolo26, type: evolved, label: 演进为 }
+- { source: yolo12, target: yolo26, type: related, label: 注意力探索 }
+- { source: yolo26, target: yolo27, type: evolved, label: 下一代 }
+- { source: yolo.v4, target: yolo.v4_legacy, type: related, label: 原生实现 }
+- { source: yolo.v8, target: ecosystem.rtdetr, type: related, label: 同期竞品 }
+- { source: yolo11, target: ecosystem.openvocab, type: related, label: 开放词汇分支 }
+- { source: ecosystem.openvocab, target: yolo26, type: related, label: YOLOE-26 并入 }
+
+# ── 基础 → 演进 ─────────────────────────────────────
+- { source: foundation.detect_def, target: yolo.v1, type: prereq, label: 先修 }
+- { source: foundation.conv, target: foundation.receptive, type: prereq, label: 先修 }
+- { source: foundation.receptive, target: yolo.v1, type: prereq, label: 先修 }
+- { source: foundation.iou, target: foundation.nms, type: prereq, label: 先修 }
+- { source: foundation.iou, target: foundation.map, type: prereq, label: 先修 }
+- { source: foundation.nms, target: yolo.v3, type: uses, label: 后处理依赖 }
+- { source: foundation.anchor, target: yolo.v2, type: uses, label: 引入锚框 }
+- { source: foundation.anchor, target: head.anchor_free, type: prereq, label: 对照先修 }
+- { source: foundation.map, target: eval.map, type: prereq, label: 先修 }
+- { source: foundation.dataset, target: train.format, type: prereq, label: 先修 }
+
+# ── 骨干 ───────────────────────────────────────────
+- { source: backbone.darknet, target: yolo.v3, type: part_of, label: v3 骨干 }
+- { source: backbone.darknet, target: backbone.cspnet, type: improves, label: 演化为 }
+- { source: backbone.cspnet, target: backbone.c3, type: improves, label: 实现为 }
+- { source: backbone.c3, target: backbone.c2f, type: improves, label: 演化为 }
+- { source: backbone.c2f, target: backbone.elan, type: related, label: 聚合思路相通 }
+- { source: backbone.elan, target: backbone.area_attn, type: improves, label: 演化为 }
+- { source: backbone.rep, target: yolo.v6, type: part_of, label: v6 骨干 }
+- { source: backbone.spp, target: backbone.attention, type: related, label: 感受野增强 }
+- { source: backbone.attention, target: yolo11, type: part_of, label: C2PSA }
+- { source: backbone.area_attn, target: yolo12, type: part_of, label: v12 骨干 }
+- { source: backbone.cspnet, target: yolo.v4, type: part_of, label: CSPDarknet }
+- { source: backbone.c3, target: yolo.v5, type: part_of, label: v5 骨干 }
+- { source: backbone.c2f, target: yolo.v8, type: part_of, label: v8 骨干 }
+- { source: backbone.c2f, target: yolo26, type: part_of, label: v26 骨干 }
+- { source: backbone.scale, target: yolo26, type: uses, label: n/s/m/l/x }
+
+# ── 颈部 ───────────────────────────────────────────
+- { source: neck.fpn, target: yolo.v3, type: part_of, label: FPN 头 }
+- { source: neck.fpn, target: neck.pan, type: improves, label: 增强为 }
+- { source: neck.pan, target: yolo.v4, type: part_of, label: PAN 颈部 }
+- { source: neck.pan, target: neck.bifpn, type: improves, label: 加权演进 }
+- { source: neck.pan, target: neck.reppan, type: improves, label: 重参数化 }
+- { source: neck.reppan, target: yolo.v6, type: part_of, label: Rep-PAN }
+- { source: neck.fusion, target: neck.fpn, type: uses, label: 融合策略 }
+- { source: neck.attn, target: neck.pan, type: related, label: 嵌入注意力 }
+- { source: neck.proto, target: task.inst_seg, type: part_of, label: 掩码原型 }
+- { source: neck.proto, target: yolo26, type: part_of, label: 多尺度 proto }
+
+# ── 检测头 ─────────────────────────────────────────
+- { source: head.conv, target: yolo.v3, type: part_of, label: 耦合头 }
+- { source: head.decoupled, target: head.conv, type: improves, label: 解耦改进 }
+- { source: head.decoupled, target: yolo.v8, type: part_of, label: v8 解耦头 }
+- { source: head.anchor_free, target: yolo.v8, type: part_of, label: anchor-free }
+- { source: head.dfl, target: head.anchor_free, type: uses, label: 框回归 }
+- { source: head.dfl, target: head.yolo26, type: related, label: v26 移除 }
+- { source: head.tal, target: head.decoupled, type: uses, label: 标签分配 }
+- { source: head.nmsfree, target: yolo.v10, type: part_of, label: v10 端到端 }
+- { source: head.nmsfree, target: head.yolo26, type: improves, label: 演化为 }
+- { source: head.yolo26, target: yolo26, type: part_of, label: v26 检测头 }
+- { source: head.mask, target: task.inst_seg, type: part_of, label: 实例掩码头 }
+- { source: head.mask, target: task.sem_seg, type: part_of, label: 语义掩码头 }
+- { source: head.depth, target: task.depth, type: part_of, label: 深度头 }
+- { source: head.depth, target: yolo26, type: part_of, label: v26 深度头 }
+
+# ── 损失 ───────────────────────────────────────────
+- { source: loss.cls, target: loss.compose, type: part_of, label: 分类项 }
+- { source: loss.iou_family, target: loss.compose, type: part_of, label: 回归项 }
+- { source: loss.dfl, target: loss.compose, type: part_of, label: 分布项 }
+- { source: loss.iou_family, target: head.dfl, type: related, label: 协同回归 }
+- { source: loss.tal, target: loss.assign_legacy, type: improves, label: 演化为 }
+- { source: loss.assign_legacy, target: head.tal, type: related, label: 分配策略 }
+- { source: loss.tal, target: head.tal, type: uses, label: 分配实现 }
+- { source: loss.progloss, target: yolo26, type: part_of, label: ProgLoss }
+- { source: loss.stal, target: yolo26, type: part_of, label: STAL }
+- { source: loss.stal, target: loss.tal, type: improves, label: 小目标增强 }
+
+# ── 任务 ───────────────────────────────────────────
+- { source: task.detect, target: task.inst_seg, type: prereq, label: 先修 }
+- { source: task.detect, target: task.pose, type: related, label: 同源头 }
+- { source: task.detect, target: task.obb, type: related, label: 同源头 }
+- { source: task.inst_seg, target: task.seg_vs_sem, type: related, label: 对比 }
+- { source: task.sem_seg, target: task.seg_vs_sem, type: related, label: 对比 }
+- { source: task.inst_seg, target: task.sem_seg, type: prereq, label: 先修 }
+- { source: task.depth, target: task.depth_fusion, type: uses, label: 融合 }
+- { source: task.inst_seg, target: task.depth_fusion, type: uses, label: 融合 }
+- { source: task.detect, target: task.track, type: uses, label: 跟踪底座 }
+- { source: ecosystem.sam, target: task.promptable, type: part_of, label: 提示分割 }
+- { source: task.promptable, target: train.labeling, type: uses, label: 自动标注 }
+
+# ── 训练 ───────────────────────────────────────────
+- { source: train.labeling, target: train.format, type: prereq, label: 先修 }
+- { source: train.format, target: train.augment, type: prereq, label: 先修 }
+- { source: train.letterbox, target: train.augment, type: related, label: 预处理 }
+- { source: train.augment, target: train.hyperparam, type: related, label: 训练配置 }
+- { source: train.hyperparam, target: train.lr_schedule, type: uses, label: 调度 }
+- { source: train.transfer, target: train.hyperparam, type: uses, label: 微调策略 }
+- { source: train.amp, target: train.hyperparam, type: uses, label: 训练加速 }
+- { source: train.monitor, target: train.overfit, type: uses, label: 诊断 }
+- { source: train.transfer, target: yolo26, type: uses, label: 预训练微调 }
+
+# ── 评估 ───────────────────────────────────────────
+- { source: eval.pr, target: eval.map, type: prereq, label: 先修 }
+- { source: eval.map, target: eval.curve, type: uses, label: 曲线分析 }
+- { source: eval.map, target: task.detect, type: uses, label: 检测指标 }
+- { source: eval.seg_metrics, target: task.sem_seg, type: uses, label: 分割指标 }
+- { source: eval.seg_metrics, target: task.inst_seg, type: uses, label: mask AP }
+- { source: eval.depth_metrics, target: task.depth, type: uses, label: 深度指标 }
+- { source: eval.speed, target: deploy.export, type: related, label: 部署评估 }
+
+# ── 部署 ───────────────────────────────────────────
+- { source: deploy.export, target: deploy.onnx, type: part_of, label: ONNX 路线 }
+- { source: deploy.onnx, target: deploy.tensorrt_intro, type: prereq, label: 先修 }
+- { source: deploy.tensorrt_intro, target: deploy.tensorrt_quant, type: prereq, label: 先修 }
+- { source: deploy.tensorrt_intro, target: deploy.tensorrt_cpp, type: prereq, label: 先修 }
+- { source: deploy.tensorrt_cpp, target: deploy.tensorrt_plugin, type: related, label: 进阶 }
+- { source: deploy.onnx, target: deploy.rknn_intro, type: prereq, label: 先修 }
+- { source: deploy.rknn_intro, target: deploy.rknn_quant, type: prereq, label: 先修 }
+- { source: deploy.rknn_intro, target: deploy.rknn_cpp, type: prereq, label: 先修 }
+- { source: deploy.cpp_pipeline, target: deploy.tensorrt_cpp, type: uses, label: 通用范式 }
+- { source: deploy.cpp_pipeline, target: deploy.rknn_cpp, type: uses, label: 通用范式 }
+- { source: deploy.cpp_pipeline, target: deploy.onnxrt, type: related, label: CPU 方案 }
+- { source: deploy.compression, target: backbone.scale, type: related, label: 轻量化选型 }
+- { source: deploy.compression, target: deploy.tensorrt_quant, type: uses, label: 量化路线 }
+- { source: deploy.nmsfree_adv, target: head.yolo26, type: uses, label: 端到端优势 }
+- { source: deploy.nmsfree_adv, target: deploy.tensorrt_plugin, type: related, label: 免 NMS }
+- { source: deploy.engineering, target: deploy.cpp_pipeline, type: uses, label: 工程优化 }
+- { source: deploy.onnx, target: yolo26, type: uses, label: 导出格式 }
+
+# ── 实战 ───────────────────────────────────────────
+- { source: practice.flow, target: practice.selection, type: part_of, label: 选型环节 }
+- { source: practice.selection, target: backbone.scale, type: uses, label: 尺度选型 }
+- { source: practice.flow, target: practice.industrial, type: part_of, label: 质检案例 }
+- { source: practice.flow, target: practice.security, type: part_of, label: 安防案例 }
+- { source: practice.flow, target: practice.robot, type: part_of, label: 机器人案例 }
+- { source: practice.industrial, target: task.detect, type: uses, label: 检测 }
+- { source: practice.industrial, target: task.inst_seg, type: uses, label: 分割 }
+- { source: practice.security, target: task.track, type: uses, label: 跟踪 }
+- { source: practice.robot, target: task.depth_fusion, type: uses, label: 测距 }
+- { source: practice.pitfalls, target: train.overfit, type: related, label: 常见问题 }
+- { source: practice.pitfalls, target: deploy.compression, type: related, label: 量化掉点 }
+- { source: practice.checklist, target: practice.flow, type: part_of, label: 交付清单 }
+- { source: practice.mastery, target: practice.flow, type: prereq, label: 学习总纲 }
+
+# ── 跨域先修（学习路径）────────────────────────────
+- { source: foundation.conv, target: backbone.darknet, type: prereq, label: 先修 }
+- { source: backbone.darknet, target: neck.fpn, type: prereq, label: 先修 }
+- { source: neck.fpn, target: head.conv, type: prereq, label: 先修 }
+- { source: head.conv, target: loss.iou_family, type: prereq, label: 先修 }
+- { source: loss.compose, target: train.hyperparam, type: prereq, label: 先修 }
+- { source: eval.map, target: train.monitor, type: prereq, label: 先修 }
+- { source: train.transfer, target: deploy.export, type: prereq, label: 先修 }
+- { source: deploy.export, target: practice.flow, type: prereq, label: 先修 }

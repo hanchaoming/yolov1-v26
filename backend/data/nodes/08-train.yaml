@@ -1,0 +1,91 @@
+# 训练与调优
+- id: train.labeling
+  label: 数据收集与标注
+  domain: train
+  type: technique
+  difficulty: 1
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [labelimg, roboflow, sam, auto-annotate]
+  order: 1
+  summary: 好数据决定上限；LabelImg/CVAT/Roboflow 标注，SAM 预标注可大幅提效。
+- id: train.format
+  label: 数据集格式
+  domain: train
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [yolo-txt, coco-json, png-mask, depth-png]
+  order: 2
+  summary: 检测用 YOLO txt；分割可用多边形 txt 或 PNG mask（255=忽略）；深度用 PNG/NPY 配对。
+- id: train.augment
+  label: 数据增强
+  domain: train
+  type: technique
+  difficulty: 2
+  tasks: [detect, inst_seg]
+  tags: [mosaic, mixup, hsv, copy-paste, letterbox]
+  order: 3
+  summary: Mosaic/MixUp/HSV/copy-paste 提升泛化；深度任务禁用会破坏配对的拼接类增强。
+- id: train.letterbox
+  label: LetterBox 预处理
+  domain: train
+  type: concept
+  difficulty: 2
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [letterbox, resize, normalize]
+  order: 4
+  summary: 保比例缩放 + 灰边填充到目标尺寸，部署时前后处理必须与训练保持一致。
+- id: train.hyperparam
+  label: 超参数配置
+  domain: train
+  type: technique
+  difficulty: 2
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [lr, batch, epochs, imgsz, optimizer]
+  order: 5
+  summary: lr0/optimizer/batch/imgsz/epochs 五件套；深度微调建议 AdamW + lr0=1e-4。
+- id: train.lr_schedule
+  label: 学习率调度
+  domain: train
+  type: concept
+  difficulty: 2
+  tasks: [detect]
+  tags: [warmup, cosine, scheduler]
+  order: 6
+  summary: warmup 防初期震荡，cosine/linear 衰减收尾；warmup_bias_lr 单独控制偏置项。
+- id: train.transfer
+  label: 迁移学习与微调
+  domain: train
+  type: technique
+  difficulty: 2
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [fine-tune, pretrained, forgetting]
+  order: 7
+  summary: 从 COCO 预训练起步是默认路径；领域差异大时降低 lr，混 5-10% 通用图防灾难遗忘。
+- id: train.amp
+  label: 混合精度 AMP
+  domain: train
+  type: technique
+  difficulty: 2
+  tasks: [detect]
+  tags: [amp, fp16, memory]
+  order: 8
+  summary: FP16 前向 + FP32 主权重，显存与速度双收，是默认开启的训练加速手段。
+- id: train.monitor
+  label: 训练监控与日志
+  domain: train
+  type: technique
+  difficulty: 1
+  tasks: [detect, inst_seg, sem_seg, depth]
+  tags: [results.csv, tensorboard, wandb]
+  order: 9
+  summary: 看 loss 曲线、mAP/fitness 与混淆矩阵；best.pt 以 fitness 最优选取。
+- id: train.overfit
+  label: 过拟合诊断与处理
+  domain: train
+  type: technique
+  difficulty: 2
+  tasks: [detect]
+  tags: [overfit, regularization, patience]
+  order: 10
+  summary: 训练 mAP 高验证低即过拟合：加数据、加增强、早停 patience、减小模型或权重衰减。

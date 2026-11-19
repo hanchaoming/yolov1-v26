@@ -1,0 +1,109 @@
+# 任务专题
+- id: task.detect
+  label: 目标检测 Detect
+  domain: task
+  type: task
+  difficulty: 1
+  tasks: [detect]
+  tags: [detect, box, baseline]
+  order: 1
+  summary: 输出框 + 类别 + 置信度，YOLO 的看家本领，也是其他任务的公共底座。
+- id: task.inst_seg
+  label: 实例分割 Segment
+  domain: task
+  type: task
+  difficulty: 2
+  tasks: [inst_seg]
+  tags: [instance-seg, mask, proto]
+  order: 2
+  summary: 每个目标独立 mask（N,H,W）+ 框，适合计数、裁剪、逐目标测量（yolo26n-seg.pt）。
+- id: task.sem_seg
+  label: 语义分割 Semantic
+  domain: task
+  type: task
+  difficulty: 2
+  tasks: [sem_seg]
+  tags: [semantic, dense, cityscapes, ade20k]
+  order: 3
+  summary: 逐像素类别图（H,W）不区分实例；YOLO26 新增 -sem 模型，Cityscapes mIoU 78.3→83.6。
+- id: task.depth
+  label: 深度估计 Depth
+  domain: task
+  type: task
+  difficulty: 3
+  tasks: [depth]
+  tags: [monocular, depth-map, metric, log-depth]
+  order: 4
+  summary: 单目逐像素深度（米），YOLO26 新增 -depth，NYU δ1 0.882→0.933，log-head 无界量程。
+- id: task.classify
+  label: 图像分类 Classify
+  domain: task
+  type: task
+  difficulty: 1
+  tasks: [classify]
+  tags: [classify, top-k]
+  order: 5
+  summary: 整图类别标签，常作为级联管线的第一道快速过滤。
+- id: task.pose
+  label: 姿态估计 Pose
+  domain: task
+  type: task
+  difficulty: 2
+  tasks: [pose]
+  tags: [pose, keypoint, rle]
+  order: 6
+  summary: 人体/物体关键点；YOLO26 用 RLE 表示遮挡关键点，AP 提升显著。
+- id: task.obb
+  label: 旋转框检测 OBB
+  domain: task
+  type: task
+  difficulty: 3
+  tasks: [obb]
+  tags: [obb, rotated, dota]
+  order: 7
+  summary: 带角度的旋转框，遥感/密集堆叠场景必备；YOLO26 专用角度损失提升 DOTA 精度。
+- id: task.track
+  label: 多目标跟踪 Track
+  domain: task
+  type: technique
+  difficulty: 2
+  tasks: [detect, inst_seg, pose, obb]
+  tags: [tracking, bytetrack, botsort]
+  order: 8
+  summary: 在 predict 之上叠加 ByteTrack/BoT-SORT，给检测框稳定 ID，支撑计数与轨迹。
+- id: task.seg_vs_sem
+  label: 实例分割 vs 语义分割
+  domain: task
+  type: concept
+  difficulty: 2
+  tasks: [inst_seg, sem_seg]
+  tags: [comparison, mask]
+  order: 9
+  summary: 实例分个数、语义分类别；输出形状 (N,H,W) vs (H,W)，选型看是否需要逐目标。
+- id: task.depth_fusion
+  label: 深度 + 分割融合（逐目标距离）
+  domain: task
+  type: technique
+  difficulty: 3
+  tasks: [inst_seg, depth]
+  tags: [fusion, per-object-depth, median]
+  order: 10
+  summary: seg mask 内取深度中位数得到每个目标的距离，机器人抓取/避障的实用配方。
+- id: task.openvocab
+  label: 开放词汇检测分割
+  domain: task
+  type: task
+  difficulty: 3
+  tasks: [detect, inst_seg]
+  tags: [open-vocabulary, yolo-world, yoloe]
+  order: 11
+  summary: 用文本/视觉提示识别任意类别，适合类别多变或零样本场景（YOLOE-26）。
+- id: task.promptable
+  label: 提示式分割 SAM
+  domain: task
+  type: task
+  difficulty: 2
+  tasks: [inst_seg]
+  tags: [sam, prompt, auto-label]
+  order: 12
+  summary: 点/框/文本提示生成任意 mask，常与 YOLO 配合做半自动标注与精细化掩码。

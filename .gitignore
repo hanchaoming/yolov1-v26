@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+frontend/tsconfig.tsbuildinfo
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# runtime / local state
+backend/data/progress.db
+*.log
+.mimocode/
+
+# editor
+.vscode/
+.idea/
